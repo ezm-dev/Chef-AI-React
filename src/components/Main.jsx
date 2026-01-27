@@ -23,7 +23,7 @@ export default function Main(){
 //         formEl.reset()
 //   }
 
-
+// Not using controlling components
   //NEW way(React 19) to handle form submit on clinet side using action={handle.....}
   //Adv: Getting formData & automatically as input, and form reset done for you
     function addItems(formData){
