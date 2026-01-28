@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useRef, useState,useEffect} from "react"
 import ClaudeRecipe from "./ClaudeRecipe"
 import IngredientsList from "./IngredientsList"
 
@@ -7,6 +7,13 @@ export default function Main(){
 
     const [ingredients,setIngredients] = useState(["all the main spices", "pasta", "ground beef", "tomato paste"])
     const [recipeShown, setRecipeShown] = useState(false)
+    const recipeSection = useRef(null)
+
+  // Scroll to recipe section when receipe is ready and recipeSection refrenced node element
+    useEffect(()=>{
+        if(recipeShown && recipeSection.current)
+        recipeSection.current.scrollIntoView({behavior: "smooth"})
+    },[recipeShown])
     
     function toggleRecipeShown(){
         setRecipeShown(prevShown=>!prevShown)
@@ -47,7 +54,7 @@ return(
             defaultValue="Pasta" />
             <button>Add ingredients</button>
         </form>
-           {ingredients.length >0 && <IngredientsList ingredients={ingredients} toggleRecipeShown={toggleRecipeShown}/> }
+           {ingredients.length >0 && <IngredientsList ingredients={ingredients} toggleRecipeShown={toggleRecipeShown} ref={recipeSection}/> }
             {recipeShown && <ClaudeRecipe /> }
     </main>
 )
